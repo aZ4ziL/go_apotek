@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     {{ range .drugs }}
-                    <tr onclick="rowClicked('A001', 'Paramex', 1000, 100)">
+                    <tr onclick='rowClicked("{{ .Code }}", "{{ .Name }}", "{{ .Price }}", "{{ .Stock }}")'>
                         <th scope="row">{{ .Code }}</th>
                         <td>{{ .Name }}</td>
                         <td>{{ .Price }}</td>
