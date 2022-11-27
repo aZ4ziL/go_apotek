@@ -11,7 +11,7 @@ func GetSessionValue(s interface{}) map[string]interface{} {
 }
 
 type Transaction struct {
-	DrugID      string `json:"drug_id" form:"drug_id"`
+	DrugCode    string `json:"drug_code" form:"drug_code"`
 	UserID      uint   `json:"user_id" form:"user_id"`
 	TotalGoods  uint   `json:"total_goods" form:"total_goods"`
 	TotalPay    uint   `json:"total_pay" form:"total_pay"`

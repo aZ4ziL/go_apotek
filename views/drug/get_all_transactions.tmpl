@@ -9,33 +9,48 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tableTransactions">
                         <thead>
                             <tr>
                                 <th scope="col">Nama Obat</th>
                                 <th scope="col">Total Barang</th>
-                                <th scope="col">Total Bayar</th>
-                                <th scope="col">Total Harga</th>
-                                <th scope="col">Total Kembalian</th>
+                                <th scope="col">Total Bayar(Rp)</th>
+                                <th scope="col">Total Harga(Rp)</th>
+                                <th scope="col">Total Kembalian(Rp)</th>
                                 <th scope="col">Tanggal Transaksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{ range .transactions }}
                             <tr>
-                                <th scope="row">{{ .DrugID | getNameDrugByCode }}</th>
+                                <th scope="row">{{ .DrugCode | getNameDrugByCode }}</th>
                                 <td>{{ .TotalGoods }}</td>
                                 <td>{{ .TotalPay }}</td>
                                 <td>{{ .TotalPrice }}</td>
                                 <td>{{ .TotalRefund }}</td>
-                                <td>{{ .CreatedAt }}</td>
+                                <td>{{ .CreatedAt.Format "01-02-2006 | 15:04:05 WIB" }}</td>
                             </tr>
                             {{ end }}
                         </tbody>
                     </table>
                 </div>
+                <button type="button" id="print" class="btn btn-primary">Import PDF</button>
             </div>
         </div>
     </div>
 </div>
+{{ end }}
+
+{{ define "script" }}
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+<script src="/static/assets/js/jspdf.plugin.autotable.js"></script>
+<script>
+    function downloadPDFWithBrowserPrint() {
+        var doc = new jspdf.jsPDF();
+        doc.autoTable({ html: "#tableTransactions" });
+        doc.save("Riwayat Transaksi.pdf");
+    }
+
+    document.querySelector("#print").addEventListener("click", downloadPDFWithBrowserPrint);
+</script>
 {{ end }}

@@ -6,7 +6,7 @@ type Drug struct {
 	Name         string        `gorm:"size:30" json:"name"`
 	Price        uint          `json:"price"`
 	Stock        uint          `json:"stock"`
-	Transactions []Transaction `gorm:"foreignKey:DrugID" json:"transactions"`
+	Transactions []Transaction `gorm:"foreignKey:DrugCode;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"transactions"`
 }
 
 // CreateNewDrug

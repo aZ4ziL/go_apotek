@@ -49,7 +49,7 @@
             <div class="modal-body">
                 <form action="" method="post" id="formTransaction">
                     <input type="hidden" name="user_id" id="user_id" value="{{ .user.id }}">
-                    <input type="hidden" name="drug_id" id="drug_id" value="">
+                    <input type="hidden" name="drug_code" id="drug_code" value="">
                     <div class="form-group">
                         <label for="total_price">Total harga</label>
                         <input type="number" name="total_price" id="total_price" class="form-control" readonly required>
@@ -83,7 +83,7 @@
 <script>
     function rowClicked(code, name, price, stock) {
 
-        $("#modalTransaction #drug_id").val(code);
+        $("#modalTransaction #drug_code").val(code);
 
         $("#modalTransaction #modalTransactionLabel").text("Membeli obat " + name);
         $("#modalTransaction").modal("show");

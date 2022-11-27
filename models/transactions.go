@@ -8,7 +8,7 @@ import (
 
 type Transaction struct {
 	ID          uint           `gorm:"primaryKey" json:"id"`
-	DrugID      string         `json:"drug_id"`
+	DrugCode    string         `json:"drug_id"`
 	UserID      uint           `json:"user_id"`
 	TotalGoods  uint           `json:"total_goods"`
 	TotalPay    uint           `json:"total_pay"`

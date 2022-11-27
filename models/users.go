@@ -18,7 +18,7 @@ type User struct {
 	IsActive     bool          `gorm:"default:1" json:"is_active"`
 	LastLogin    time.Time     `gorm:"null" json:"last_login"`
 	DateJoined   time.Time     `gorm:"autoCreateTime" json:"date_joined"`
-	Transactions []Transaction `gorm:"foreignKey:UserID" json:"transactions"`
+	Transactions []Transaction `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"transactions"`
 }
 
 // CreateNewUser

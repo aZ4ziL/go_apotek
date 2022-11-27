@@ -68,7 +68,7 @@ func CreateNewTransaction(ctx *gin.Context) {
 		}
 
 		transaction := models.Transaction{
-			DrugID:      transactionRequest.DrugID,
+			DrugCode:    transactionRequest.DrugCode,
 			UserID:      transactionRequest.UserID,
 			TotalGoods:  transactionRequest.TotalGoods,
 			TotalPay:    transactionRequest.TotalPay,
@@ -77,7 +77,7 @@ func CreateNewTransaction(ctx *gin.Context) {
 		}
 
 		// Get Drug
-		drug, err := models.GetDrugByCode(transactionRequest.DrugID)
+		drug, err := models.GetDrugByCode(transactionRequest.DrugCode)
 		if err != nil {
 			flasher.Set("danger", "Mohon maaf obat yang Anda beli tidak ada.")
 			ctx.Redirect(http.StatusFound, "/transactions/pay")
