@@ -10,6 +10,7 @@ func Controllers(router *gin.Engine) {
 	router.POST("/login", handlers.Login)
 	router.GET("/register", handlers.Register)
 	router.POST("/register", handlers.Register)
+	router.GET("/logout", handlers.Logout)
 
 	// Index
 	router.GET("", handlers.Index)

@@ -114,3 +114,18 @@ func Register(ctx *gin.Context) {
 		return
 	}
 }
+
+// Logout
+// handler for logouting user
+func Logout(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+
+	session.Delete("user")
+	session.Clear()
+	if err := session.Save(); err != nil {
+		http.Error(ctx.Writer, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	ctx.Redirect(http.StatusFound, "/")
+}
