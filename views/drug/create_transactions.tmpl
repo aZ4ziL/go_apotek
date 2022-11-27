@@ -1,0 +1,113 @@
+{{ define "title" }}Beli Obat{{ end }}
+
+{{ define "content" }}
+<div class="row mt-3 justify-content-center">
+
+    <div class="col-lg-12 mt-3">
+        {{ if .flasher.Type }}
+        <div class="alert alert-{{ .flasher.Type }} alert-dismissible mb-2" role="alert">
+            {{ .flasher.Message }}
+            <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
+        </div>
+        {{ end }}
+        <h5>Silahkan klik untuk pilih item.</h5>
+        <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Kode Obat</th>
+                        <th scope="col">Nama Obat</th>
+                        <th scope="col">Harga (Rp)</th>
+                        <th scope="col">Stok</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .drugs }}
+                    <tr onclick="rowClicked('A001', 'Paramex', 1000, 100)">
+                        <th scope="row">{{ .Code }}</th>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Price }}</td>
+                        <td>{{ .Stock }}</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="modalTransaction" tabindex="-1" aria-labelledby="modalTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTransactionLabel"></h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="formTransaction">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ .user.id }}">
+                    <input type="hidden" name="drug_id" id="drug_id" value="">
+                    <div class="form-group">
+                        <label for="total_price">Total harga</label>
+                        <input type="number" name="total_price" id="total_price" class="form-control" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="total_goods">Jumlah barang</label>
+                        <input type="number" name="total_goods" id="total_goods" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="total_pay">Jumlah Bayar</label>
+                        <input type="number" name="total_pay" id="total_pay" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="total_refund">Jumlah kembalian</label>
+                        <input type="number" name="total_refund" id="total_refund" class="form-control" readonly
+                            required>
+                    </div>
+                    <button class="mt-3 btn btn-primary">Beli</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MDB -->
+{{ end }}
+
+{{ define "script" }}
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    function rowClicked(code, name, price, stock) {
+
+        $("#modalTransaction #drug_id").val(code);
+
+        $("#modalTransaction #modalTransactionLabel").text("Membeli obat " + name);
+        $("#modalTransaction").modal("show");
+
+
+        inputTotalGoodsKeyUp(price);
+        inputTotalPrice();
+    }
+
+    function inputTotalPrice() {
+        $("#total_pay").on("keyup", () => {
+            var totalPrice = $("#total_price").val();
+            var totalPay = $("#total_pay").val();
+
+            $("#total_refund").val(totalPay - totalPrice);
+        })
+    }
+
+    function inputTotalGoodsKeyUp(price) {
+        $("#total_goods").on("keyup", () => {
+            $("#total_price").val($("#total_goods").val() * price);
+
+            $("#total_refund").val($("#total_pay").val() - $("#total_price").val());
+        });
+    }
+</script>
+{{ end }}

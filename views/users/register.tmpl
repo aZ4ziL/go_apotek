@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title mb-5">Register User</h5>
+
+                        {{ if .flasher.Type }}
+                        <div class="alert alert-{{ .flasher.Type }} alert-dismissible" role="alert">
+                            {{ .flasher.Message }}
+                            <button type="button" class="btn-close" data-mdb-dismiss="alert"></button>
+                        </div>
+                        {{ end }}
+
+                        <form action="" method="post">
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="text" id="first_name" name="first_name" class="form-control"
+                                            required />
+                                        <label class="form-label" for="first_name">First name</label>
+                                    </div>
+                                </div>
+                                <div class=" col">
+                                    <div class="form-outline">
+                                        <input type="text" id="last_name" name="last_name" class="form-control"
+                                            required />
+                                        <label class="form-label" for="last_name">Last name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Username Input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="username" name="username" class="form-control" required />
+                                <label class="form-label" for="username">Username</label>
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" id="email" name="email" class="form-control" required />
+                                <label class="form-label" for="email">Email address</label>
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="password" name="password" class="form-control" />
+                                <label class="form-label" for="password">Password</label>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33"
+                                    checked />
+                                <label class="form-check-label" for="form2Example33">
+                                    Subscribe to our newsletter
+                                </label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+
+                            <!-- Register buttons -->
+                            <div class="text-center">
+                                <p>Sign Up <a href="/login">here.</a></p>
+                                <p>or sign up with:</p>
+                                <button type="button" class="btn btn-primary btn-floating mx-1">
+                                    <i class="fab fa-facebook-f"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-floating mx-1">
+                                    <i class="fab fa-google"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-floating mx-1">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-floating mx-1">
+                                    <i class="fab fa-github"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{{ define "title" }}Home{{ end }}
+
+{{ define "content" }}
+<!-- Jumbotron -->
+{{ if .user }}
+<div class="p-5 text-center bg-light">
+    <h1 class="mb-3">Apotek</h1>
+    <h4 class="mb-3">Selamat Datang {{ .user.full_name }}</h4>
+    <a class="btn btn-primary" href="/transactions/pay" role="button">Beli Obat</a>
+</div>
+{{ else }}
+<div class="p-5 text-center bg-light">
+    <h1 class="mb-3">Apotek</h1>
+    <h4 class="mb-3">Selamat Datang</h4>
+    <a class="btn btn-primary" href="/login" role="button">Get Started</a>
+</div>
+{{ end }}
+<!-- Jumbotron -->
+{{ end }}
