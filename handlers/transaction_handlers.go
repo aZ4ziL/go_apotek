@@ -14,7 +14,7 @@ func GetAllTransactions(ctx *gin.Context) {
 
 	user := session.Get("user")
 	if user == nil {
-		flasher.Set("info", "Mohon login terlebih dahulu Anda sebelum mengakses halaman ini.")
+		flasher.Set("info", "Mohon login terlebih dahulu sebelum Anda mengakses halaman ini.")
 		ctx.Redirect(http.StatusFound, "/login")
 		return
 	}
@@ -75,6 +75,25 @@ func CreateNewTransaction(ctx *gin.Context) {
 			TotalPrice:  transactionRequest.TotalPrice,
 			TotalRefund: transactionRequest.TotalRefund,
 		}
+
+		// Get Drug
+		drug, err := models.GetDrugByCode(transactionRequest.DrugID)
+		if err != nil {
+			flasher.Set("danger", "Mohon maaf obat yang Anda beli tidak ada.")
+			ctx.Redirect(http.StatusFound, "/transactions/pay")
+			return
+		}
+
+		// if the drug stock is small from the number of items purchased
+		if drug.Stock < transaction.TotalGoods {
+			flasher.Set("danger", "Mohon maaf stok obat telah habis, atau Anda terlalu banyak membeli barang. Harap sesuaikan jumlah barang yang ingin Anda beli.")
+			ctx.Redirect(http.StatusFound, "/transactions/pay")
+			return
+		}
+
+		// reduce stock
+		drug.Stock = drug.Stock - transactionRequest.TotalGoods
+		models.Connection().Save(&drug)
 
 		err = models.CreateNewTransaction(&transaction)
 		if err != nil {

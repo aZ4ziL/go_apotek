@@ -14,8 +14,8 @@ func GetALlDrug(ctx *gin.Context) {
 	user := session.Get("user")
 
 	if user == nil {
-		flasher.Set("info", "Mohon login terlebih dahulu sebelum mengakses halaman ini.")
-		ctx.Redirect(http.StatusOK, "/login")
+		flasher.Set("info", "Mohon login terlebih dahulu sebelum Anda mengakses halaman ini.")
+		ctx.Redirect(http.StatusFound, "/login")
 		return
 	}
 
