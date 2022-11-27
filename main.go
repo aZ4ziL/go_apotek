@@ -29,7 +29,8 @@ func main() {
 	store := gormsessions.NewStore(models.Connection(), true, []byte("mysecretkey"))
 	router.Use(sessions.Sessions("ginSessionID", store))
 
+	router.Use(setAcceptLanguageToIndonesia)
 	controllers.Controllers(router)
 
-	router.Run(":8000")
+	router.Run(":8888")
 }
